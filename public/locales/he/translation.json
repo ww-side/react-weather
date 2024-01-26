@@ -1,0 +1,6 @@
+{
+  "feelsLike": "<bold>{{temperature}}</bold> <bold>{{unit}}</bold>: מרגיש כמו",
+  "wind": "רוּחַ :<el>{{windSpeed}} m/s</el>",
+  "humidity": "לחות",
+  "pressure": "לַחַץ: <el>{{pressureValue}}Pa</el>"
+}

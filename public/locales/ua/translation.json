@@ -1,0 +1,6 @@
+{
+  "feelsLike": "Відчувається як: <bold>{{temperature}}</bold> <bold>{{unit}}</bold>",
+  "wind": "Вітер: <el>{{windSpeed}} m/s</el>",
+  "humidity": "Вологість",
+  "pressure": "Тиск: <el>{{pressureValue}}Pa</el>"
+}
