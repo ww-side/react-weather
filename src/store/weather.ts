@@ -19,7 +19,7 @@ class Weather implements WeatherModel {
   };
 
   deleteWeather = (id: number) => {
-    this.weathers = this.weathers.filter(weather => weather.id !== id);
+    this.weathers = this.weathers.filter(weather => weather.city.id !== id);
   };
 }
 
