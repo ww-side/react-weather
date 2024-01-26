@@ -6,8 +6,12 @@ module.exports = {
       backgroundColor: {
         azure: '#459DE9',
         'azure-light': '#6AB0ED',
-        'light-lavender': '#FFFAF1',
-        'light-beige': '#F1F2FF',
+        'light-lavender': '#F1F2FF',
+        'light-beige': '#FFFAF1',
+      },
+      colors: {
+        'light-gray': '#C5C5C5',
+        'apricot-orange': '#FFA25B',
       },
     },
   },
