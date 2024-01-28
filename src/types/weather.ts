@@ -1,4 +1,4 @@
-export type WeatherDataType = {
+export type WeekWeatherDataType = {
   cod: string;
   message: number;
   cnt: number;
@@ -6,7 +6,23 @@ export type WeatherDataType = {
   city: City;
 };
 
-interface List {
+export type CurrentWeatherDataType = {
+  coord: Coord;
+  weather: Weather[];
+  base: string;
+  main: Main;
+  visibility: number;
+  wind: Wind;
+  clouds: Clouds;
+  dt: number;
+  sys: CurrentSys;
+  timezone: number;
+  id: number;
+  name: string;
+  cod: number;
+};
+
+export type List = {
   dt: number;
   main: Main;
   weather: Weather[];
@@ -14,11 +30,11 @@ interface List {
   wind: Wind;
   visibility: number;
   pop: number;
-  sys: Sys;
+  sys: WeekSys;
   dt_txt: string;
-}
+};
 
-interface Main {
+type Main = {
   temp: number;
   feels_like: number;
   temp_min: number;
@@ -28,30 +44,36 @@ interface Main {
   grnd_level: number;
   humidity: number;
   temp_kf: number;
-}
+};
 
-interface Weather {
+type Weather = {
   id: number;
   main: string;
   description: string;
   icon: string;
-}
+};
 
-interface Clouds {
+type Clouds = {
   all: number;
-}
+};
 
-interface Wind {
+type Wind = {
   speed: number;
   deg: number;
   gust: number;
-}
+};
 
-interface Sys {
+type WeekSys = {
   pod: string;
-}
+};
 
-interface City {
+type CurrentSys = {
+  country: string;
+  sunrise: number;
+  sunset: number;
+};
+
+type City = {
   id: number;
   name: string;
   coord: Coord;
@@ -60,9 +82,9 @@ interface City {
   timezone: number;
   sunrise: number;
   sunset: number;
-}
+};
 
-interface Coord {
+type Coord = {
   lat: number;
   lon: number;
-}
+};
