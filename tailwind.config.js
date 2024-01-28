@@ -12,6 +12,7 @@ module.exports = {
       colors: {
         'light-gray': '#C5C5C5',
         'apricot-orange': '#FFA25B',
+        azure: '#459DE9',
       },
     },
   },
