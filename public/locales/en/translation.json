@@ -2,5 +2,7 @@
   "feelsLike": "Feels like: <bold>{{temperature}}</bold> <bold>{{unit}}</bold>",
   "wind": "Wind: <el>{{windSpeed}} m/s</el>",
   "humidity": "Humidity",
-  "pressure": "Pressure: <el>{{pressureValue}}Pa</el>"
+  "pressure": "Pressure: <el>{{pressureValue}}Pa</el>",
+  "add": "Add",
+  "formPlaceholder": "Type a city..."
 }

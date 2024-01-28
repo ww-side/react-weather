@@ -1,4 +1,5 @@
 import { ChangeEvent, type FC, FormEvent, useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Oval } from 'react-loader-spinner';
@@ -12,8 +13,9 @@ const Form: FC = observer(() => {
   const [inputValue, setInputValue] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [autoCompleteValues, setAutoCompleteValues] = useState<string[]>([]);
+  const { t } = useTranslation();
 
-  const { weathers, addWeather } = weatherStore;
+  const { currentWeathers, addCurrentWeather, addWeekWeather } = weatherStore;
 
   useEffect(() => {
     const storedValues = localStorage.getItem('autoCompleteValues');
@@ -37,23 +39,31 @@ const Form: FC = observer(() => {
 
       const { coord, id } = res.data;
 
-      if (weathers.some(weather => weather.city.id === id)) {
+      if (currentWeathers.some(weather => weather.id === id)) {
         return toast.error('This city already have in the weather list.');
       }
 
-      const cityWeather = await weatherService.getCityWeather(
+      const currentCityWeather = await weatherService.getCurrentCityWeather(
         coord.lat,
         coord.lon
       );
 
-      addWeather(cityWeather);
-
-      const updatedAutoCompleteValues = [...autoCompleteValues, inputValue];
-      setAutoCompleteValues(updatedAutoCompleteValues);
-      localStorage.setItem(
-        'autoCompleteValues',
-        JSON.stringify(updatedAutoCompleteValues)
+      const weekCityWeather = await weatherService.getWeekCityWeather(
+        coord.lat,
+        coord.lon
       );
+
+      addCurrentWeather(currentCityWeather);
+      addWeekWeather(weekCityWeather);
+
+      if (!autoCompleteValues.includes(inputValue)) {
+        const updatedAutoCompleteValues = [...autoCompleteValues, inputValue];
+        setAutoCompleteValues(updatedAutoCompleteValues);
+        localStorage.setItem(
+          'autoCompleteValues',
+          JSON.stringify(updatedAutoCompleteValues)
+        );
+      }
 
       setInputValue('');
     } catch (err) {
@@ -70,7 +80,7 @@ const Form: FC = observer(() => {
     >
       <Input
         value={inputValue}
-        placeholder="Type a city..."
+        placeholder={t('formPlaceholder')}
         onChange={handleInputChange}
         autoCompleteValues={autoCompleteValues}
       />
@@ -85,7 +95,7 @@ const Form: FC = observer(() => {
             ariaLabel="oval-loading"
           />
         ) : (
-          'Add'
+          t('add')
         )}
       </Button>
     </form>
