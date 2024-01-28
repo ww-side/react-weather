@@ -5,12 +5,18 @@ import weatherStore from '../../../store/weather';
 import weatherService from '../../../services/WeatherService';
 
 const WeatherList = observer(() => {
-  const { weathers, addWeather } = weatherStore;
+  const { currentWeathers, addCurrentWeather, addWeekWeather } = weatherStore;
 
   const getWeather = async (lat: number, lon: number) => {
     try {
-      const weatherData = await weatherService.getCityWeather(lat, lon);
-      addWeather(weatherData);
+      const currentWeatherData = await weatherService.getCurrentCityWeather(
+        lat,
+        lon
+      );
+      const weekWeatherData = await weatherService.getWeekCityWeather(lat, lon);
+
+      addCurrentWeather(currentWeatherData);
+      addWeekWeather(weekWeatherData);
     } catch (error) {
       console.error('Error getting weather data:', error);
     }
@@ -31,10 +37,10 @@ const WeatherList = observer(() => {
 
   return (
     <div className="mt-[122px]">
-      {weathers.length === 0 ? (
+      {currentWeathers.length === 0 ? (
         <p>No cities have been tracked yet</p>
       ) : (
-        <WeatherCard weathers={weathers} />
+        <WeatherCard weather={currentWeathers} />
       )}
     </div>
   );

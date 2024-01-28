@@ -1,25 +1,42 @@
 import { makeAutoObservable } from 'mobx';
-import type { WeatherDataType } from '../types/weather';
+import type {
+  CurrentWeatherDataType,
+  WeekWeatherDataType,
+} from '../types/weather';
 
 interface WeatherModel {
-  weathers: WeatherDataType[];
-  addWeather(weather: WeatherDataType): void;
-  deleteWeather(id: number): void;
+  currentWeathers: CurrentWeatherDataType[];
+  weekWeathers: WeekWeatherDataType[];
+  addCurrentWeather(weather: CurrentWeatherDataType): void;
+  deleteCurrentWeather(id: number): void;
 }
 
 class Weather implements WeatherModel {
-  weathers: WeatherDataType[] = [];
+  currentWeathers: CurrentWeatherDataType[] = [];
+  weekWeathers: WeekWeatherDataType[] = [];
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  addWeather = (weather: WeatherDataType) => {
-    this.weathers.push(weather);
+  addCurrentWeather = (weather: CurrentWeatherDataType) => {
+    this.currentWeathers.push(weather);
   };
 
-  deleteWeather = (id: number) => {
-    this.weathers = this.weathers.filter(weather => weather.city.id !== id);
+  addWeekWeather = (weather: WeekWeatherDataType) => {
+    this.weekWeathers.push(weather);
+  };
+
+  deleteCurrentWeather = (id: number) => {
+    this.currentWeathers = this.currentWeathers.filter(
+      weather => weather.id !== id
+    );
+  };
+
+  deleteWeekWeather = (id: number) => {
+    this.weekWeathers = this.weekWeathers.filter(
+      weather => weather.city.id !== id
+    );
   };
 }
 
