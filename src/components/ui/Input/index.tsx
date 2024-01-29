@@ -1,4 +1,5 @@
-import { ChangeEvent, type FC, useState, useRef, useEffect } from 'react';
+import { ChangeEvent, FC, useState, useRef, useEffect } from 'react';
+import cx from 'classnames';
 
 const Input: FC<{
   placeholder: string;
@@ -24,6 +25,8 @@ const Input: FC<{
     };
   }, []);
 
+  const i18nextLng = localStorage.getItem('i18nextLng');
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
     onChange(e);
@@ -43,10 +46,15 @@ const Input: FC<{
     setIsOpen(false);
   };
 
+  const inputClasses = cx(
+    'bg-white rounded shadow outline-none px-1 py-2 w-[569px]',
+    { 'text-right': i18nextLng === 'he' }
+  );
+
   return (
     <div className="relative" ref={inputRef}>
       <input
-        className="bg-white rounded shadow outline-none px-1 py-2 w-[569px]"
+        className={inputClasses}
         value={value}
         placeholder={placeholder}
         onChange={handleInputChange}
