@@ -1,34 +1,25 @@
-import { FC } from 'react';
-import { useTranslation } from 'react-i18next';
+import { type FC } from 'react';
 import { TfiWorld } from 'react-icons/tfi';
+import { useTranslation } from 'react-i18next';
+import Dropdown from '../../ui/Dropdown';
 
 const LanguageSwitch: FC = () => {
   const { i18n } = useTranslation();
 
-  const lngs: Record<string, { nativeName: string }> = {
-    en: { nativeName: 'EN' },
-    ua: { nativeName: 'UA' },
-    he: { nativeName: 'HE' },
-  };
+  const languages = [
+    { value: 'en', label: 'EN' },
+    { value: 'uk', label: 'UA' },
+    { value: 'he', label: 'HE' },
+  ];
 
-  const handleChangeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
+  const handleChangeLanguage = (value: string) => {
+    i18n.changeLanguage(value);
   };
 
   return (
-    <div className="flex items-center gap-1 justify-end">
-      <TfiWorld size={12} color="#AFAFAF" />
-      <select
-        className="outline-none bg-white text-[#AFAFAF]"
-        value={i18n.resolvedLanguage}
-        onChange={e => handleChangeLanguage(e.target.value)}
-      >
-        {Object.keys(lngs).map((lng: string) => (
-          <option className="text-black" key={lng} value={lng}>
-            {lngs[lng].nativeName}
-          </option>
-        ))}
-      </select>
+    <div className="flex items-center gap-2 justify-end">
+      <TfiWorld size={14} color="#AFAFAF" />
+      <Dropdown options={languages} onChange={handleChangeLanguage} />
     </div>
   );
 };
