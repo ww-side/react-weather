@@ -34,13 +34,24 @@ const Form: FC = observer(() => {
 
     try {
       const res = await axios.get(
-        `http://api.openweathermap.org/data/2.5/weather?q=${inputValue.trim()}&appid=8a8db88bf9636c42b1fd0e47cb65b225`
+        `http://api.openweathermap.org/data/2.5/weather?q=${inputValue.trim()}&appid=${
+          process.env.REACT_APP_OPEN_WEATHER_MAP_API_KEY
+        }`
       );
 
       const { coord, id } = res.data;
 
       if (currentWeathers.some(weather => weather.id === id)) {
         return toast.error('This city already have in the weather list.');
+      }
+
+      const storedCities = localStorage.getItem('cities');
+      const cities = storedCities ? JSON.parse(storedCities) : [];
+
+      const existingCity = cities.find((city: any) => city.id === id);
+      if (!existingCity) {
+        cities.push({ id, lat: coord.lat, lon: coord.lon });
+        localStorage.setItem('cities', JSON.stringify(cities));
       }
 
       const currentCityWeather = await weatherService.getCurrentCityWeather(
