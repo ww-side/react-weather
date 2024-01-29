@@ -5,7 +5,7 @@ class WeatherService {
     try {
       return await axios
         .get(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=8a8db88bf9636c42b1fd0e47cb65b225`
+          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_OPEN_WEATHER_MAP_API_KEY}`
         )
         .then(res => res.data);
     } catch (err: any) {
@@ -17,7 +17,7 @@ class WeatherService {
     try {
       return await axios
         .get(
-          `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=8a8db88bf9636c42b1fd0e47cb65b225`
+          `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_OPEN_WEATHER_MAP_API_KEY}`
         )
         .then(res => res.data);
     } catch (err: any) {
