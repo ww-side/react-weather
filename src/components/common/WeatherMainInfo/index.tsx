@@ -43,7 +43,10 @@ const WeatherMainInfo: FC<{ weather: CurrentWeatherDataType }> = observer(
               src={`http://openweathermap.org/img/w/${weather.weather[0].icon}.png`}
               alt="weather-icon"
             />
-            {t(weather.weather[0].main, weather.weather[0].main)}
+            {t(
+              `weatherStatus.${weather.weather[0].main}`,
+              weather.weather[0].main
+            )}
           </div>
         </div>
         <div className="text-lg">{date}</div>

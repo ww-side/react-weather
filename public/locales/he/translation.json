@@ -1,0 +1,45 @@
+{
+  "noCities": "עדיין לא עקבו אחר ערים",
+  "form": {
+    "add": "לְהוֹסִיף",
+    "placeholder": "הקלד עיר..."
+  },
+  "weatherStatus": {
+    "Rain": "גֶשֶׁם",
+    "Snow": "שֶׁלֶג",
+    "Sunny": "שִׁמשִׁי",
+    "Haze": "עֲרָפֶל",
+    "Mist": "עֲרָפֶל",
+    "Clear": "ברור",
+    "Clouds": "עננים"
+  },
+  "weatherDetails": {
+    "wind": "רוּחַ :<el>{{windSpeed}} m/s</el>",
+    "pressure": "לַחַץ: <el>{{pressureValue}}Pa</el",
+    "feelsLike": "<bold>{{temperature}}</bold> <bold>{{unit}}</bold>: מרגיש כמו",
+    "humidity": "לחות"
+  },
+  "months": {
+    "January": "ינואר",
+    "February": "פברואר",
+    "March": "מרץ",
+    "April": "אפריל",
+    "May": "מאי",
+    "June": "יוני",
+    "July": "יולי",
+    "August": "אוגוסט",
+    "September": "ספטמבר",
+    "October": "אוקטובר",
+    "November": "נובמבר",
+    "December": "דצמבר"
+  },
+  "days": {
+    "Mon": "יום שני",
+    "Tue": "יום שלישי",
+    "Wed": "יום רביעי",
+    "Thu": "יום חמישי",
+    "Fri": "יום שישי",
+    "Sat": "יום שבת",
+    "Sun": "יום ראשון"
+  }
+}

@@ -25,7 +25,7 @@ const WeatherDetails: FC<{
           />
           <p className="text-light-gray text-sm">
             <Trans
-              i18nKey="feelsLike"
+              i18nKey="weatherDetails.feelsLike"
               values={{
                 temperature: isCelsius
                   ? convertTemperature(weather.main.feels_like, true)
@@ -38,7 +38,7 @@ const WeatherDetails: FC<{
         </div>
         <div className="text-right text-sm font-medium">
           <Trans
-            i18nKey="wind"
+            i18nKey="weatherDetails.wind"
             values={{
               windSpeed: weather.wind.speed,
             }}
@@ -47,11 +47,11 @@ const WeatherDetails: FC<{
             }}
           />
           <p>
-            {t('humidity')}:{' '}
+            {t('weatherDetails.humidity')}:{' '}
             <span className={textColor}>{weather.main.humidity}%</span>
           </p>
           <Trans
-            i18nKey="pressure"
+            i18nKey="weatherDetails.pressure"
             values={{
               pressureValue: weather.main.pressure,
             }}

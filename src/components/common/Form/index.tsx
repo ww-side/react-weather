@@ -91,7 +91,7 @@ const Form: FC = observer(() => {
     >
       <Input
         value={inputValue}
-        placeholder={t('formPlaceholder')}
+        placeholder={t('form.placeholder')}
         onChange={handleInputChange}
         autoCompleteValues={autoCompleteValues}
       />
@@ -106,7 +106,7 @@ const Form: FC = observer(() => {
             ariaLabel="oval-loading"
           />
         ) : (
-          t('add')
+          t('form.add')
         )}
       </Button>
     </form>

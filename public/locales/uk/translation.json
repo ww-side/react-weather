@@ -1,0 +1,45 @@
+{
+  "noCities": "Жодне місто ще не відстежується",
+  "form" : {
+    "add": "Додати",
+    "placeholder": "Введіть місто..."
+  },
+  "weatherStatus": {
+    "Rain": "Дощ",
+    "Snow": "Сніг",
+    "Sunny": "Сонячно",
+    "Haze": "Імла",
+    "Mist": "Туман",
+    "Clear": "Ясно",
+    "Clouds": "Хмарно"
+  },
+  "weatherDetails": {
+    "wind": "Вітер: <el>{{windSpeed}} m/s</el>",
+    "pressure": "Тиск: <el>{{pressureValue}}Pa</el>",
+    "feelsLike": "Відчувається як: <bold>{{temperature}}</bold> <bold>{{unit}}</bold>",
+    "humidity": "Вологість"
+  },
+  "months": {
+    "January": "Січень",
+    "February": "Лютий",
+    "March": "Березень",
+    "April": "Квітень",
+    "May": "Травень",
+    "June": "Червень",
+    "July": "Липень",
+    "August": "Серпень",
+    "September": "Вересень",
+    "October": "Жовтень",
+    "November": "Листопад",
+    "December": "Грудень"
+  },
+  "days": {
+    "Mon": "Пн ",
+    "Tue": "Вт",
+    "Wed": "Ср",
+    "Thu": "Чт",
+    "Fri": "Пт",
+    "Sat": "Сб",
+    "Sun": "Нд"
+  }
+}

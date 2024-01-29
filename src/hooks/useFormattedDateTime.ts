@@ -9,5 +9,8 @@ export const useFormattedDateTime = (date: Date) => {
 
   const { t } = useTranslation();
 
-  return `${t(weekDay, weekDay)}, ${day} ${t(month, month)}, ${time}`;
+  return `${t(`days.${weekDay}`, weekDay)}, ${day} ${t(
+    `months.${month}`,
+    month
+  )}, ${time}`;
 };
