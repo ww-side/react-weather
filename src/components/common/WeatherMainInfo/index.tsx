@@ -1,6 +1,7 @@
 import { type FC } from 'react';
 import { observer } from 'mobx-react-lite';
-import dateformat from 'dateformat';
+import { useTranslation } from 'react-i18next';
+import { useFormattedDateTime } from '../../../hooks/useFormattedDateTime';
 import weatherStore from '../../../store/weather';
 import type { CurrentWeatherDataType } from '../../../types/weather';
 
@@ -8,7 +9,18 @@ const WeatherMainInfo: FC<{ weather: CurrentWeatherDataType }> = observer(
   ({ weather }) => {
     const { deleteCurrentWeather, deleteWeekWeather } = weatherStore;
 
+    const { t } = useTranslation();
+    const date = useFormattedDateTime(new Date());
+
+    const storedCities = localStorage.getItem('cities');
+    const cities = storedCities ? JSON.parse(storedCities) : [];
+
     const handleClickDelete = () => {
+      const updatedCities = cities.filter(
+        (city: any) => city.id !== weather.id
+      );
+
+      localStorage.setItem('cities', JSON.stringify(updatedCities));
       deleteCurrentWeather(weather.id);
       deleteWeekWeather(weather.id);
     };
@@ -31,12 +43,10 @@ const WeatherMainInfo: FC<{ weather: CurrentWeatherDataType }> = observer(
               src={`http://openweathermap.org/img/w/${weather.weather[0].icon}.png`}
               alt="weather-icon"
             />
-            {weather.weather[0].main}
+            {t(weather.weather[0].main, weather.weather[0].main)}
           </div>
         </div>
-        <div className="text-lg">
-          {dateformat(new Date(), 'ddd, d mmmm, HH:MM')}
-        </div>
+        <div className="text-lg">{date}</div>
       </>
     );
   }
