@@ -2,7 +2,6 @@ import { type FC } from 'react';
 import cx from 'classnames';
 import WeatherDetails from '../WeatherDetails';
 import WeatherMainInfo from '../WeatherMainInfo';
-import TemperatureGraph from '../TemperatureGraph';
 import type { CurrentWeatherDataType } from '../../../types/weather';
 
 const WeatherCard: FC<{ weather: CurrentWeatherDataType[] }> = ({
@@ -27,7 +26,6 @@ const WeatherCard: FC<{ weather: CurrentWeatherDataType[] }> = ({
           key={item.id}
         >
           <WeatherMainInfo weather={item} />
-          <TemperatureGraph cityId={item.id} />
           <WeatherDetails weather={item} />
         </div>
       ))}

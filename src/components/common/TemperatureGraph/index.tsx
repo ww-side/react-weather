@@ -3,15 +3,16 @@ import dateformat from 'dateformat';
 import { Area, AreaChart } from 'recharts';
 import { observer } from 'mobx-react-lite';
 import LabelGraph from '../../ui/LabelGraph';
-import type { List } from '../../../types/weather';
+import useWeatherStyles from '../../../hooks/useWeatherStyles';
+import { convertTemperature } from '../../../helpers/convertTemperature';
 import weatherStore from '../../../store/weather';
-import tempScaleStore from '../../../store/tempScale';
+import type { List } from '../../../types/weather';
 
 const TemperatureGraph: FC<{
   cityId: number;
-}> = observer(({ cityId }) => {
+  isCelsius: boolean;
+}> = observer(({ cityId, isCelsius }) => {
   const { weekWeathers } = weatherStore;
-  const { isCelsius, convertTemperature } = tempScaleStore;
 
   const filterListByTime = (list: List[], targetTime: string) => {
     const filteredList = list.filter(
@@ -27,17 +28,15 @@ const TemperatureGraph: FC<{
   };
 
   const selectedCity = weekWeathers.filter(item => item.city.id === cityId);
+
   const data = filterListByTime(
     selectedCity[0].list,
     selectedCity[0].list[0].dt_txt.split(' ')[1]
   );
 
-  const graphFillGradient =
-    selectedCity[0].city.country === 'US'
-      ? 'url(#lavanderGradient)'
-      : 'url(#beigeGradient)';
-  const graphStroke =
-    selectedCity[0].city.country === 'US' ? '#5B8CFF' : '#FFA25B';
+  const { graphStroke, graphFillGradient } = useWeatherStyles(
+    selectedCity[0].city.country
+  );
 
   return (
     <div className="my-5">
@@ -45,14 +44,14 @@ const TemperatureGraph: FC<{
       <AreaChart width={320} height={50} data={data}>
         <defs>
           <linearGradient id="beigeGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#FFA25B" stopOpacity={0.8} />
-            <stop offset="95%" stopColor="#FFF4F4" stopOpacity={0} />
+            <stop offset="3%" stopColor="#FFA25B" stopOpacity={0.9} />
+            <stop offset="97%" stopColor="#FFF4F4" stopOpacity={0} />
           </linearGradient>
         </defs>
         <defs>
           <linearGradient id="lavanderGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#5B8CFF" stopOpacity={0.8} />
-            <stop offset="95%" stopColor="#FFF4F4" stopOpacity={0} />
+            <stop offset="3%" stopColor="#5B8CFF" stopOpacity={0.9} />
+            <stop offset="97%" stopColor="#FFF4F4" stopOpacity={0} />
           </linearGradient>
         </defs>
         <Area

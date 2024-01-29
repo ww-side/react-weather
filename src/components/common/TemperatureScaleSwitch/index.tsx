@@ -1,12 +1,11 @@
-import { type FC } from 'react';
-import { observer } from 'mobx-react-lite';
-import tempScaleStore from '../../../store/tempScale';
+import { type Dispatch, type FC, type SetStateAction } from 'react';
+import { convertTemperature } from '../../../helpers/convertTemperature';
 
 const TemperatureScaleSwitch: FC<{
   temperature: number;
-}> = observer(({ temperature }) => {
-  const { isCelsius, setIsCelsius, convertTemperature } = tempScaleStore;
-
+  isCelsius: boolean;
+  setIsCelsius: Dispatch<SetStateAction<boolean>>;
+}> = ({ temperature, isCelsius, setIsCelsius }) => {
   return (
     <div className="flex">
       <p className="text-[44px]">
@@ -33,6 +32,6 @@ const TemperatureScaleSwitch: FC<{
       </div>
     </div>
   );
-});
+};
 
 export default TemperatureScaleSwitch;
