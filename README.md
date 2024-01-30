@@ -1,5 +1,9 @@
-# React.JS | Test
+![screen](https://images2.imgbox.com/39/53/XvSiqWRe_o.png)
 
+- TypeScript
+- React
+- MobX
+# React.JS | Test
 Must init app with Create-React-App
 Must using OpenWeatherMap API
 
