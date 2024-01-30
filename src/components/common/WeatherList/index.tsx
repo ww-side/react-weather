@@ -53,7 +53,7 @@ const WeatherList = observer(() => {
     const cities = getCitiesFromLocalStorage();
 
     const existingCity = cities.find(
-      (city: any) =>
+      (city: City) =>
         city.lon === Number(position.coords.longitude.toFixed(4)) &&
         city.lat === Number(position.coords.latitude.toFixed(4))
     );
@@ -88,7 +88,11 @@ const WeatherList = observer(() => {
           {t('noCities', 'No cities have been tracked yet')}
         </p>
       ) : (
-        <WeatherCard weather={currentWeathers} />
+        <section className="flex flex-wrap gap-8">
+          {currentWeathers.map(item => (
+            <WeatherCard key={item.id} weather={item} />
+          ))}
+        </section>
       )}
     </div>
   );

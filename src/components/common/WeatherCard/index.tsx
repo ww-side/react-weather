@@ -4,9 +4,7 @@ import WeatherDetails from '../WeatherDetails';
 import WeatherMainInfo from '../WeatherMainInfo';
 import type { CurrentWeatherDataType } from '../../../types/weather';
 
-const WeatherCards: FC<{ weather: CurrentWeatherDataType[] }> = ({
-  weather,
-}) => {
+const WeatherCard: FC<{ weather: CurrentWeatherDataType }> = ({ weather }) => {
   const setBackgroundColor = (country: string) => {
     if (country === 'US' || country === 'CA') {
       return 'bg-light-lavender';
@@ -16,20 +14,16 @@ const WeatherCards: FC<{ weather: CurrentWeatherDataType[] }> = ({
   };
 
   return (
-    <section className="flex flex-wrap gap-8">
-      {weather.map(item => (
-        <div
-          className={cx(
-            setBackgroundColor(item.sys.country),
-            'w-[350px] relative p-3 rounded shadow-md'
-          )}
-          key={item.id}
-        >
-          <WeatherMainInfo weather={item} />
-          <WeatherDetails weather={item} />
-        </div>
-      ))}
-    </section>
+    <div
+      className={cx(
+        setBackgroundColor(weather.sys.country),
+        'w-[350px] relative p-3 rounded shadow-md'
+      )}
+      key={weather.id}
+    >
+      <WeatherMainInfo weather={weather} />
+      <WeatherDetails weather={weather} />
+    </div>
   );
 };
-export default WeatherCards;
+export default WeatherCard;
