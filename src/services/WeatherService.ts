@@ -24,6 +24,20 @@ class WeatherService {
       console.log(err);
     }
   }
+
+  async getCurrentCityWeatherByName(name: string) {
+    try {
+      return await axios
+        .get(
+          `http://api.openweathermap.org/data/2.5/weather?q=${name.trim()}&appid=${
+            process.env.REACT_APP_OPEN_WEATHER_MAP_API_KEY
+          }`
+        )
+        .then(res => res.data);
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
 }
 
 const weatherService = new WeatherService();

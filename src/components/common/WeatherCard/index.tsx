@@ -4,7 +4,7 @@ import WeatherDetails from '../WeatherDetails';
 import WeatherMainInfo from '../WeatherMainInfo';
 import type { CurrentWeatherDataType } from '../../../types/weather';
 
-const WeatherCard: FC<{ weather: CurrentWeatherDataType[] }> = ({
+const WeatherCards: FC<{ weather: CurrentWeatherDataType[] }> = ({
   weather,
 }) => {
   const setBackgroundColor = (country: string) => {
@@ -32,4 +32,4 @@ const WeatherCard: FC<{ weather: CurrentWeatherDataType[] }> = ({
     </section>
   );
 };
-export default WeatherCard;
+export default WeatherCards;

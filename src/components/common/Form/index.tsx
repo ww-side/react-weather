@@ -1,6 +1,5 @@
 import { ChangeEvent, type FC, FormEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Oval } from 'react-loader-spinner';
 import { observer } from 'mobx-react-lite';
@@ -38,13 +37,10 @@ const Form: FC = observer(() => {
     setIsLoading(true);
 
     try {
-      const res = await axios.get(
-        `http://api.openweathermap.org/data/2.5/weather?q=${inputValue.trim()}&appid=${
-          process.env.REACT_APP_OPEN_WEATHER_MAP_API_KEY
-        }`
-      );
+      const currentCityWeather =
+        await weatherService.getCurrentCityWeatherByName(inputValue);
 
-      const { coord, id } = res.data;
+      const { coord, id } = currentCityWeather;
 
       if (currentWeathers.some(weather => weather.id === id)) {
         return toast.error('This city already have in the weather list.');
@@ -56,11 +52,6 @@ const Form: FC = observer(() => {
       if (!existingCity) {
         updateLocalStorageCities({ id, lat: coord.lat, lon: coord.lon });
       }
-
-      const currentCityWeather = await weatherService.getCurrentCityWeather(
-        coord.lat,
-        coord.lon
-      );
 
       const weekCityWeather = await weatherService.getWeekCityWeather(
         coord.lat,
