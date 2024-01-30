@@ -4,6 +4,11 @@ import { useTranslation } from 'react-i18next';
 import WeatherCard from '../WeatherCard';
 import weatherStore from '../../../store/weather';
 import weatherService from '../../../services/WeatherService';
+import {
+  getCitiesFromLocalStorage,
+  updateLocalStorageCities,
+} from '../../../helpers/localStorage';
+import type { City } from '../../../types/localStorageCity';
 
 const WeatherList = observer(() => {
   const { currentWeathers, addCurrentWeather, addWeekWeather } = weatherStore;
@@ -17,55 +22,62 @@ const WeatherList = observer(() => {
       );
       const weekWeatherData = await weatherService.getWeekCityWeather(lat, lon);
 
-      const storedCities = localStorage.getItem('cities');
-      const cities = storedCities ? JSON.parse(storedCities) : [];
-
-      const existingCity = cities.find(
-        (city: any) => city.id === currentWeatherData.id
+      const existingCity = currentWeathers.find(
+        city => city.id === currentWeatherData.id
       );
 
       if (!existingCity) {
-        cities.push({
+        addCurrentWeather(currentWeatherData);
+        addWeekWeather(weekWeatherData);
+      }
+
+      const cities = getCitiesFromLocalStorage();
+
+      const existingCityInLocalStorage = cities.find(
+        (city: City) => city.id === currentWeatherData.id
+      );
+
+      if (!existingCityInLocalStorage) {
+        updateLocalStorageCities({
           id: currentWeatherData.id,
           lat: currentWeatherData.coord.lat,
           lon: currentWeatherData.coord.lon,
         });
-        localStorage.setItem('cities', JSON.stringify(cities));
       }
-
-      addCurrentWeather(currentWeatherData);
-      addWeekWeather(weekWeatherData);
     } catch (error) {
       console.error('Error getting weather data:', error);
     }
   };
 
+  const handleGeolocation = (position: GeolocationPosition) => {
+    const cities = getCitiesFromLocalStorage();
+
+    const existingCity = cities.find(
+      (city: any) =>
+        city.lon === Number(position.coords.longitude.toFixed(4)) &&
+        city.lat === Number(position.coords.latitude.toFixed(4))
+    );
+
+    if (!existingCity) {
+      getWeather(position.coords.latitude, position.coords.longitude);
+    }
+  };
+
+  const fetchWeatherDataForCities = async (cities: City[]) => {
+    for (const city of cities) {
+      await getWeather(city.lat, city.lon);
+    }
+  };
+
   useEffect(() => {
-    const storedCities = localStorage.getItem('cities');
-    const cities = storedCities ? JSON.parse(storedCities) : [];
-
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        const existingCity = cities.find(
-          (city: any) =>
-            city.lon === Number(position.coords.longitude.toFixed(4)) &&
-            city.lat === Number(position.coords.latitude.toFixed(4))
-        );
-
-        if (!existingCity) {
-          getWeather(position.coords.latitude, position.coords.longitude);
-        }
-      });
+      navigator.geolocation.getCurrentPosition(handleGeolocation);
     }
 
-    if (cities) {
-      const fetchWeatherData = async () => {
-        for (const city of cities) {
-          await getWeather(city.lat, city.lon);
-        }
-      };
+    const cities = getCitiesFromLocalStorage();
 
-      fetchWeatherData();
+    if (cities) {
+      fetchWeatherDataForCities(cities);
     }
   }, []);
 

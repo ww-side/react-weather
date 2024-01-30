@@ -2,6 +2,7 @@ import { type FC } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useTranslation } from 'react-i18next';
 import { useFormattedDateTime } from '../../../hooks/useFormattedDateTime';
+import { deleteCityFromLocalStorage } from '../../../helpers/localStorage';
 import weatherStore from '../../../store/weather';
 import type { CurrentWeatherDataType } from '../../../types/weather';
 
@@ -12,15 +13,8 @@ const WeatherMainInfo: FC<{ weather: CurrentWeatherDataType }> = observer(
     const { t } = useTranslation();
     const date = useFormattedDateTime(new Date());
 
-    const storedCities = localStorage.getItem('cities');
-    const cities = storedCities ? JSON.parse(storedCities) : [];
-
     const handleClickDelete = () => {
-      const updatedCities = cities.filter(
-        (city: any) => city.id !== weather.id
-      );
-
-      localStorage.setItem('cities', JSON.stringify(updatedCities));
+      deleteCityFromLocalStorage(weather.id);
       deleteCurrentWeather(weather.id);
       deleteWeekWeather(weather.id);
     };

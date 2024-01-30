@@ -1,4 +1,4 @@
-import { ChangeEvent, type FC, FormEvent, useState, useEffect } from 'react';
+import { ChangeEvent, type FC, FormEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -6,8 +6,13 @@ import { Oval } from 'react-loader-spinner';
 import { observer } from 'mobx-react-lite';
 import Input from '../../ui/Input';
 import Button from '../../ui/Button';
+import {
+  getCitiesFromLocalStorage,
+  updateLocalStorageCities,
+} from '../../../helpers/localStorage';
 import weatherStore from '../../../store/weather';
 import weatherService from '../../../services/WeatherService';
+import type { City } from '../../../types/localStorageCity';
 
 const Form: FC = observer(() => {
   const [inputValue, setInputValue] = useState<string>('');
@@ -45,13 +50,11 @@ const Form: FC = observer(() => {
         return toast.error('This city already have in the weather list.');
       }
 
-      const storedCities = localStorage.getItem('cities');
-      const cities = storedCities ? JSON.parse(storedCities) : [];
+      const cities = getCitiesFromLocalStorage();
 
-      const existingCity = cities.find((city: any) => city.id === id);
+      const existingCity = cities.find((city: City) => city.id === id);
       if (!existingCity) {
-        cities.push({ id, lat: coord.lat, lon: coord.lon });
-        localStorage.setItem('cities', JSON.stringify(cities));
+        updateLocalStorageCities({ id, lat: coord.lat, lon: coord.lon });
       }
 
       const currentCityWeather = await weatherService.getCurrentCityWeather(
