@@ -34,31 +34,28 @@ const TemperatureGraph: FC<{
     selectedCity[0].list[0].dt_txt.split(' ')[1]
   );
 
-  const { graphStroke, graphFillGradient } = useWeatherStyles(
-    selectedCity[0].city.country
-  );
+  const { graphFillGradient } = useWeatherStyles(selectedCity[0].city.country);
 
   return (
     <div className="my-5">
       <LabelGraph data={data} dataKey="temperature" />
-      <AreaChart width={320} height={50} data={data}>
+      <AreaChart width={320} height={60} data={data}>
         <defs>
-          <linearGradient id="beigeGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="3%" stopColor="#FFA25B" stopOpacity={0.9} />
-            <stop offset="97%" stopColor="#FFF4F4" stopOpacity={0} />
+          <linearGradient id="beigeGradient" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0%" stopColor="#FFA25B" stopOpacity={0.3} />
+            <stop offset="100%" stopColor="#FFF4F4" stopOpacity={0.6} />
           </linearGradient>
         </defs>
         <defs>
-          <linearGradient id="lavanderGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="3%" stopColor="#5B8CFF" stopOpacity={0.9} />
-            <stop offset="97%" stopColor="#FFF4F4" stopOpacity={0} />
+          <linearGradient id="lavanderGradient" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0%" stopColor="#5B8CFF" stopOpacity={0.3} />
+            <stop offset="100%" stopColor="#FFF4F4" stopOpacity={0.6} />
           </linearGradient>
         </defs>
         <Area
           dataKey="temperature"
           fill={graphFillGradient}
-          points={[]}
-          stroke={graphStroke}
+          stroke="transparent"
           type="monotone"
         />
       </AreaChart>

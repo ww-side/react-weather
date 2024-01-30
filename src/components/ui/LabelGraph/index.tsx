@@ -12,9 +12,9 @@ const LabelGraph: FC<{ data: ListDataType[]; dataKey: string }> = ({
   dataKey,
 }) => {
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between px-2.5">
       {data.map(item => (
-        <span className="text-light-gray text-sm" key={uuid()}>
+        <span className="text-light-gray text-[12px]" key={uuid()}>
           {item[dataKey]}
         </span>
       ))}

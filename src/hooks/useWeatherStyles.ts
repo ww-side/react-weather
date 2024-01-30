@@ -5,12 +5,10 @@ const useWeatherStyles = (country: string) => {
   const graphFillGradient = isNorthAmerican
     ? 'url(#lavanderGradient)'
     : 'url(#beigeGradient)';
-  const graphStroke = isNorthAmerican ? '#5B8CFF' : '#FFA25B';
 
   return {
     textColor,
     graphFillGradient,
-    graphStroke,
   };
 };
 
