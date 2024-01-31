@@ -1,7 +1,7 @@
 export const convertTemperature = (temp: number, toCelsius: boolean) => {
   if (toCelsius) {
-    return (temp - 273.15).toFixed(0).toString();
+    return Math.round(temp - 273.15).toString();
   } else {
-    return ((temp - 273.15) * (9 / 5) + 32).toFixed(0).toString();
+    return Math.round((temp - 273.15) * (9 / 5) + 32).toString();
   }
 };
